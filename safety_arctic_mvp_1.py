@@ -11,8 +11,8 @@ FILENAME = "/Users/ivan/Desktop/actions/arctic/project_sa/web_app.json" if "AMVE
 import io
 import streamlit as st
 
-import matplotlib
-from matplotlib import pyplot as plt
+# import matplotlib
+# from matplotlib import pyplot as plt
 
 import torch
 from torch import nn
