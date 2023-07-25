@@ -4,7 +4,7 @@
 import os
 import json
 from flask import Flask, request, abort
-from flask_cors import CORS
+# from flask_cors import CORS
 
 FILENAME = "/Users/ivan/Desktop/actions/arctic/project_sa/web_app.json" if "AMVERA" in os.environ else "web_app.json"
 
