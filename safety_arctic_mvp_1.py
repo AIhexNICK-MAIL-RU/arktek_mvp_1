@@ -137,4 +137,9 @@ if result:
     # используя форматирование Markdown
     st.write('**Результаты расчетов:**')
     # Выводим результаты 
-    print_predictions(f{y_val})
+    # print_predictions(f{y_val})
+    
+    CSV = pd.DataFrame({
+    "Prediction": y_pred
+    })
+    CSV.to_csv("prediction.csv", index=False)
