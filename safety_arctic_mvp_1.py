@@ -48,16 +48,46 @@ from sklearn.impute import SimpleImputer
 
 from flask import Flask, render_template # new
 
-app = Flask(__name__)
+# %matplotlib inline
+# from IPython import display
 
-@app.route('/')
-# def index():
-#     try:
+import os
+import json
+from flask import Flask, request, abort
+from flask_cors import CORS
 
-#     return render_template('index.html') # new
+FILENAME = "/Users/ivan/Desktop/actions/arctic/project_sa/web_app.json" if "AMVERA" in os.environ else "web_app.json"
 
-# if __name__ == '__main__':
-#     app.run()
+import io
+import streamlit as st
+
+import matplotlib
+from matplotlib import pyplot as plt
+
+import torch
+from torch import nn
+from torch import optim
+import torch.nn.functional as F
+
+import random
+
+import pandas as pd
+import numpy as np
+
+import seaborn as sns
+
+from sklearn.model_selection import train_test_split
+
+from sklearn.metrics import r2_score
+from sklearn.model_selection import ShuffleSplit
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+from sklearn.linear_model import LinearRegression
+
+# from tqdm.notebook import tqdm
+
+from sklearn.impute import SimpleImputer
+
 
 @st.cache(allow_output_mutation=True)
 
@@ -76,24 +106,15 @@ def load_dataset():
         # Получение загруженного 
         download_data = uploaded_file.getvalue()
         # Показ загруженного  на Web-странице средствами Streamlit
-        st.table(download_data)
+        st.image(download_data)
         # Возврат  в формате PIL
-        return uploaded_file.open(io.BytesIO(download_data))
+        return Image.open(io.BytesIO(download_data))
     else:
-        return render_template('error.html')
+        return None
 
 
 def print_predictions(preds):
-    return st.write(print(model.predict(preds)))
-
-# @app.route('/predict',methods=['POST'])
-#def predict(preds):
-#     #For rendering results on HTML GUI
-#     int_features = [float(x) for x in request.form.values()]
-#     final_features = [np.array(int_features)]
-    #print(model.predict())
-#     output = round(prediction[0], 2) 
-#     return render_template('index.html', prediction_text='CO2    Emission of the vehicle is :{}'.format(output))
+    st.write(y_val)
 
 # Загружаем предварительно обученную модель
 model = load_model()
@@ -109,12 +130,11 @@ result = st.button('Создать прогноз')
 # Если кнопка нажата, то запускаем 
 if result:
     # # Предварительная обработка 
-    x = load_dataset()
+    # x = preprocess_image(img)
     # Распознавание изображения
     preds = model.predict(x)
     # Выводим заголовок результатов жирным шрифтом
     # используя форматирование Markdown
-    #return render_template('index.html')
     st.write('**Результаты расчетов:**')
     # Выводим результаты 
     print_predictions(preds)
