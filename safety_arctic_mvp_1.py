@@ -54,7 +54,7 @@ from flask import Flask, render_template # new
 import os
 import json
 from flask import Flask, request, abort
-from flask_cors import CORS
+# from flask_cors import CORS
 
 FILENAME = "/Users/ivan/Desktop/actions/arctic/project_sa/web_app.json" if "AMVERA" in os.environ else "web_app.json"
 
@@ -137,4 +137,4 @@ if result:
     # используя форматирование Markdown
     st.write('**Результаты расчетов:**')
     # Выводим результаты 
-    print_predictions(preds)
+    print_predictions(f{y_val})
